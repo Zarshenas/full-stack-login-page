@@ -7,10 +7,7 @@ const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin","*")
   
   const parsedURL = url.parse(req.url, true);
-  const mmd = userDB.users.find(
-    (user) => user.password === parsedURL.query.password
-  )
-
+  
   if (parsedURL.pathname === "/api/v1/users") {
     if(!parsedURL.query.username){
       res.write(JSON.stringify(userDB.users));
