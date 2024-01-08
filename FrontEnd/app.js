@@ -11,14 +11,11 @@ form.addEventListener("submit", function (e) {
     return;
   }
   fetch(`${URL}/users?username=${username}&password=${password}`)
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 404) alert(res.statusText);
+      if (res.status === 200) return res.json()
+    })
     .then((data) => {
-      if (data === null) {
-        alert("user does not exist.")
-      } else if (data.error) {
-        alert(data.error);
-      } else {
-        alert(`welcome ${data.name}`);
-      }
+      if (data) alert(`Welcome {${data.username}}`)
     });
 });
